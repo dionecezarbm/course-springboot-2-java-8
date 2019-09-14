@@ -31,5 +31,12 @@ public class CategoryService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public Category update(Long id, Category obj) {
+		Category entity = repository.getOne(id);
+		entity.setName(obj.getName());
+		
+		return repository.save(entity);
+	}
 
 }
