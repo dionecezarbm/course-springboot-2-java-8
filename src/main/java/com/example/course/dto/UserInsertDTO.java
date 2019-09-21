@@ -2,6 +2,11 @@ package com.example.course.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.example.course.entities.User;
 
 public class UserInsertDTO implements Serializable {
@@ -9,9 +14,20 @@ public class UserInsertDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String nome;
+	
+	@NotEmpty(message = "can't be empty")
+	@Length(min = 5, max = 80, message = "length must be between 5 and 80")
+	private String name;
+	
+	@NotEmpty(message = "can't be empty")
+	@Email(message = "invalid e-mail")
 	private String email;
+	
+	@NotEmpty(message = "can't be empty")
+	@Length(min = 5, max = 20, message = "length must be between 5 and 20")
 	private String phone;
+	
+	@NotEmpty(message = "can't be empty")
 	private String password;
 	
 	public UserInsertDTO() {
@@ -20,7 +36,7 @@ public class UserInsertDTO implements Serializable {
 	public UserInsertDTO(Long id, String nome, String email, String phone, String password) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = nome;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
@@ -28,7 +44,7 @@ public class UserInsertDTO implements Serializable {
 	
 	public UserInsertDTO(User entity) {
 		this.id = entity.getId();
-		this.nome = entity.getNome();
+		this.name = entity.getNome();
 		this.email = entity.getEmail();
 		this.phone = entity.getPhone();
 		this.password = entity.getPassword();
@@ -42,12 +58,12 @@ public class UserInsertDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -75,7 +91,7 @@ public class UserInsertDTO implements Serializable {
 	}
 
 	public User toEntity() {
-		return new User(id, nome, email, phone, password);
+		return new User(id, name, email, phone, password);
 	}
 
 }
