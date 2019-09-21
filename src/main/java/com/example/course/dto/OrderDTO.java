@@ -45,7 +45,7 @@ public class OrderDTO implements Serializable {
 		this.moment = entity.getMoment();
 		this.orderStatus = entity.getOrderStatus();
 		this.clientId = entity.getClient().getId();
-		this.clientName = entity.getClient().getNome();
+		this.clientName = entity.getClient().getName();
 		this.clientEmail = entity.getClient().getEmail();
 	}
 

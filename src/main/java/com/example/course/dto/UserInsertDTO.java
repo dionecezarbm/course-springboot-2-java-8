@@ -44,7 +44,7 @@ public class UserInsertDTO implements Serializable {
 	
 	public UserInsertDTO(User entity) {
 		this.id = entity.getId();
-		this.name = entity.getNome();
+		this.name = entity.getName();
 		this.email = entity.getEmail();
 		this.phone = entity.getPhone();
 		this.password = entity.getPassword();
