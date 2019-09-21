@@ -9,24 +9,24 @@ public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String nome;
+	private String name;
 	private String email;
 	private String phone;
 	
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String nome, String email, String phone) {
+	public UserDTO(Long id, String name, String email, String phone) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.email = email;
 		this.phone = phone;
 	}
 	
 	public UserDTO(User entity) {
 		this.id = entity.getId();
-		this.nome = entity.getNome();
+		this.name = entity.getNome();
 		this.email = entity.getEmail();
 		this.phone = entity.getPhone();
 	}
@@ -39,12 +39,12 @@ public class UserDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String nome) {
+		this.name = nome;
 	}
 
 	public String getEmail() {
@@ -64,7 +64,7 @@ public class UserDTO implements Serializable {
 	}
 	
 	public User toEntity() {
-		return new User(id, nome, email, phone, null);
+		return new User(id, name, email, phone, null);
 	}
 
 }
