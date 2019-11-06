@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.course.dto.CredentialsDTO;
 import com.example.course.dto.TokenDTO;
 import com.example.course.security.JWTUtil;
 import com.example.course.services.exceptions.JWTAuthenticationException;
 
+@Service
 public class AuthService {
 	
 	@Autowired
@@ -18,6 +21,7 @@ public class AuthService {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
+	@Transactional(readOnly = true)
 	public TokenDTO authenticate(CredentialsDTO dto) {
 		try {
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
