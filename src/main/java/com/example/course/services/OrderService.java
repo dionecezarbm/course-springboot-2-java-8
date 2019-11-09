@@ -15,6 +15,7 @@ import com.example.course.entities.Order;
 import com.example.course.entities.OrderItem;
 import com.example.course.entities.User;
 import com.example.course.repositories.OrderRepository;
+import com.example.course.repositories.UserRepository;
 import com.example.course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -22,6 +23,9 @@ public class OrderService {
 	
 	@Autowired
 	private OrderRepository repository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private AuthService authService;
@@ -50,6 +54,13 @@ public class OrderService {
 		authService.validateOwnOrderOrAdmin(order);
 		Set<OrderItem> set = order.getItems();
 		return set.stream().map(e -> new OrderItemDTO(e)).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<OrderDTO> findByClientId(Long clientId) {
+		User client = userRepository.getOne(clientId);
+		List<Order> list = repository.findByClient(client);
+		return list.stream().map(e -> new OrderDTO(e)).collect(Collectors.toList());
 	}
 
 }
