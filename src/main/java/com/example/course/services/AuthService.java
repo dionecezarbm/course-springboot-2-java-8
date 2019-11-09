@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class AuthService {
 	
 	@Autowired
 	private JWTUtil jwtUtil;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -88,7 +92,7 @@ public class AuthService {
 		}
 		
 		String newPass = newPassword();
-		user.setPassword(newPass);
+		user.setPassword(passwordEncoder.encode(newPass));
 		
 		userRepository.save(user);
 		
